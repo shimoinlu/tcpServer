@@ -16,6 +16,16 @@ bool User::operator<(User Right)
 	return strcmp(userName.c_str(), Right.getUserName().c_str()) < 0;
 }
 
+bool User::operator>(User Right)
+{
+	return Right < *this;
+}
+
+bool User::operator==(User Right)
+{
+	return !(*this < Right) && !(*this > Right);
+}
+
 void User::addMessage(const Message& msg)
 {
 	++messageCounter;

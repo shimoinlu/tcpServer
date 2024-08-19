@@ -17,6 +17,9 @@ public:
 	bool validatePassword(const std::string& password);
 	std::string getUserName() { return userName; }
 	bool operator< (User Right);
+	bool operator> (User Right);
+	bool operator== (User Right);
+
 	std::vector<Message> getMessages() { return vecMsg; }
 	void addMessage(const Message& msg);
 	std::string printAllMessages();

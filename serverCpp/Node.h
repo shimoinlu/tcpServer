@@ -79,7 +79,7 @@ int getBalance(Node<T>* N) {
 // Recursive function to insert a val in 
 // the subtree rooted with node 
 template <typename T>
-Node<T>* insert(Node<T>* node, int val) {
+Node<T>* insert(Node<T>* node, T val) {
 
     // Perform the normal BST insertion
     if (node == nullptr)
