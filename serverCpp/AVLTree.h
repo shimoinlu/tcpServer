@@ -10,6 +10,7 @@ public:
 	AVLTree();
 	void insertToTree(T newItem);
 	Node<T>* findNode(Node<T>* root, T node);
+	Node<T>* findNode(T node);
 };
 
 template<typename T>
@@ -21,7 +22,7 @@ inline AVLTree<T>::AVLTree()
 template<typename T>
 inline void AVLTree<T>::insertToTree(T newItem)
 {
-	root = insertToTree(root, newItem);
+	root = insert(root, newItem);
 }
 
 template<typename T>
@@ -29,10 +30,16 @@ inline Node<T>* AVLTree<T>::findNode(Node<T>* root,T node)
 {
 	if (root == nullptr)
 		return nullptr;
-	if (*root == node)
+	if (root->val == node)
 		return root;
-	else if (node > *root)
+	else if (node > root->val)
 		return findNode(root->right,node);
 	else
 		return findNode(root->left, node);
+}
+
+template<typename T>
+inline Node<T>* AVLTree<T>::findNode(T node)
+{
+	return findNode(root,node);
 }
