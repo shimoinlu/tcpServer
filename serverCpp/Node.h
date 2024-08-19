@@ -9,8 +9,7 @@ struct Node {
     Node<T>* right;
     int height;
 
-    Node<T>(T v) {
-        val = v;
+    Node<T>(T v):val(v) {
         left = nullptr;
         right = nullptr;
         height = 1;

@@ -1,10 +1,16 @@
 #include "User.h"
 #include <algorithm>
-User::User(const std::string& userNameParameter, const std::string& password)
+User::User( std::string const & userNameParameter,  std::string const& password)
 {
 	userName = userNameParameter;
 	pass = password;
 	messageCounter = readedMessage = 0;
+}
+
+User::User(std::string const& line)
+	:User(line.substr(0, line.find(" ")), line.substr(line.find(" ")+1))
+{
+
 }
 
 bool User::validatePassword(const std::string& password)
