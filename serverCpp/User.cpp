@@ -15,7 +15,7 @@ User::User(std::string const& line)
 
 bool User::validatePassword(const std::string& password)
 {
-	return pass.compare(password);
+	return pass.compare(password) == 0;
 }
 bool User::operator<(User Right)
 {
