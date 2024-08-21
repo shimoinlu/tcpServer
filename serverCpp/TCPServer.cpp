@@ -89,36 +89,31 @@ void TCPServer::runServer()
         {
             RetErrorHttpRespone(clientSocket, e.what());
             closesocket(clientSocket);
-            WSACleanup();
+           
         }
     }
 }
 
 void TCPServer::RetHttpOk(SOCKET& cs, std::string message)
 {
-    std::stringstream wsss;
-    wsss << "HTTP/1.1 200 OK\r\n"
-        << "Connection: keep-alive\r\n"
-        << "Content-Type: image/x-icon\r\n"
-        << "Content-Length: " << message.length() << "\r\n"
-        << "\r\n";
-
-    std::string headers = wsss.str();
-    send(cs, headers.c_str(), headers.size(), 0);
-    send(cs, message.c_str(), message.length(), 0);
+    std::string httpResponse =
+        "HTTP/1.1 200 OK\r\n"  // Status line
+        "Content-Type: text/plain\r\n"  // Content-Type header
+        "Content-Length: " + std::to_string(message.length()) + "\r\n"  // Content-Length header
+        "\r\n"  // End of headers
+        + message;
+    send(cs, httpResponse.c_str(), httpResponse.size(), 0);
 
 }
 void TCPServer::RetErrorHttpRespone(SOCKET& cs, std::string message)
 {
-    std::stringstream wsss;
-    wsss << "HTTP/1.1 487 Miss Data\r\n"
-        << "Connection: keep-alive\r\n"
-        << "Content-Type: image/x-icon\r\n"
-        << "Content-Length: " << message.length() << "\r\n"
-        << "\r\n";
-
-    std::string headers = wsss.str();
-    send(cs, headers.c_str(), headers.size(),0);
-    send(cs,message.c_str(), message.length(), 0);
+    std::string httpResponse =
+        "HTTP/1.1 487 Miss Data\r\n"  // Status line
+        "Content-Type: text/plain\r\n"  // Content-Type header
+        "Content-Length: " + std::to_string(message.length()) + "\r\n"  // Content-Length header
+        
+        "\r\n"  // End of headers
+        + message;
+    send(cs, httpResponse.c_str(), httpResponse.size(),0);
 
 }

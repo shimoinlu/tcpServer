@@ -29,7 +29,7 @@ void ManageClientsConnections::HandleConnectionRequest(SOCKET & clientSocket)
                 headers[headerName] = headerValue.substr(0, headerValue.length() - 1);
             }
         }
-        mud.isExsistUserAndPAsswordIsCorrect(headers["Username"], headers["Password"]);
+        mud.isExistUserAndPasswordIsCorrect(headers["Username"], headers["Password"]);
 
     }
 }
