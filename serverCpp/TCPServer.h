@@ -6,6 +6,7 @@
 #include <ws2tcpip.h>
 #include <iostream>
 #include <map>
+#include <thread>
 #include <sstream>
 #include "AVLTree.h" 
 #include "User.h"
@@ -24,10 +25,8 @@ public:
 	~TCPServer();
 	void runServer();
 private:
-	void RetHttpOk(SOCKET& cs, std::string message);
-	void RetErrorHttpRespone(SOCKET& cs, std::string message);
 	ManageClientsConnections mcc;
 	SOCKET listenSocket;
-
+	void newThread(void* args);
 };
 

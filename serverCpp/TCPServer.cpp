@@ -74,46 +74,24 @@ void TCPServer::runServer()
     while (1)
     {
         cout << "#########################\n";
-        SOCKET clientSocket;
-        clientSocket = accept(listenSocket, NULL, NULL);
-        if (clientSocket == INVALID_SOCKET) {
+        SOCKET* clientSocket = (SOCKET*)(malloc(sizeof(SOCKET)));  // allocate a SOCKET on the heap
+        if (clientSocket == NULL) { printf("malloc() failed!?\n"); break; }
+
+        *clientSocket = accept(listenSocket, NULL, NULL);
+        if (*clientSocket == INVALID_SOCKET) {
             std::cerr << "accept failed: " << WSAGetLastError() << std::endl;
             closesocket(listenSocket);
             WSACleanup();
         }
-        try {
-            mcc.HandleConnectionRequest(clientSocket);
-            RetHttpOk(clientSocket, "connection succeeded\r\n");
-        }
-        catch (exception& e)
-        {
-            RetErrorHttpRespone(clientSocket, e.what());
-            closesocket(clientSocket);
-           
-        }
+            cout << "i in parent my id is: " << this_thread::get_id() << '\n';
+                                                                                                                                                                                        //        mud.isExistUserAndPasswordIsCorrect(headers["Username"], headers["Password"]);
+                                                                                                                                                                            // Creating a thread with std::thread
+            std::thread thread(&TCPServer::newThread, this, (void*)clientSocket);
+            thread.detach();  // Detach the thread if you don't want to join it later        //    std::thread t(&ManageClientsConnections::HandleConnectionRequest,*this,clientSocket);
     }
 }
 
-void TCPServer::RetHttpOk(SOCKET& cs, std::string message)
+void TCPServer::newThread(void* args)
 {
-    std::string httpResponse =
-        "HTTP/1.1 200 OK\r\n"  // Status line
-        "Content-Type: text/plain\r\n"  // Content-Type header
-        "Content-Length: " + std::to_string(message.length()) + "\r\n"  // Content-Length header
-        "\r\n"  // End of headers
-        + message;
-    send(cs, httpResponse.c_str(), httpResponse.size(), 0);
-
-}
-void TCPServer::RetErrorHttpRespone(SOCKET& cs, std::string message)
-{
-    std::string httpResponse =
-        "HTTP/1.1 487 Miss Data\r\n"  // Status line
-        "Content-Type: text/plain\r\n"  // Content-Type header
-        "Content-Length: " + std::to_string(message.length()) + "\r\n"  // Content-Length header
-        
-        "\r\n"  // End of headers
-        + message;
-    send(cs, httpResponse.c_str(), httpResponse.size(),0);
-
+    mcc.HandleConnectionRequest(args);
 }
