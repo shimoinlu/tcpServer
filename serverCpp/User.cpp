@@ -5,6 +5,7 @@ User::User( std::string const & userNameParameter,  std::string const& password)
 	userName = userNameParameter;
 	pass = password;
 	messageCounter = readedMessage = 0;
+	vecMsg = std::vector<Message>();
 }
 
 User::User(std::string const& line)

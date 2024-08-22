@@ -25,15 +25,21 @@ void ManageClientsConnections::HandleConnectionRequest(void* clientSocket)
             case LOGIN: {
                 string username = getValueFromRequest(request, "Username");
                 string password = getValueFromRequest(request, "Password");
-                cout << "in login: " << username << " " << password << endl;
                 mud.isExistUserAndPasswordIsCorrect(username, password);
-                cout << "user is exist\n";
                 break;
             }
             case EXIT:
                 break;
-            case SEND_MESSAGE:
+            case SEND_MESSAGE: {
+                cout << "***********" << request << "*************" << "\n";
+                string from = getValueFromRequest(request, "Username");
+                string data = request.substr(request.find("recipient"));
+                string recipient = data.substr(data.find_first_of("=") + 1);
+                recipient = recipient.substr(0, recipient.find("&"));
+                string message = data.substr(data.find_last_of("=") + 1);
+                mud.pushMessage(from, recipient, message);
                 break;
+            }
             case RECIVE_MESSAGES:
                 break;
             default:
@@ -55,23 +61,6 @@ void ManageClientsConnections::HandleConnectionRequest(void* clientSocket)
     }
 }
 
-void ManageClientsConnections::RunThredForClient(const socket2User& s2u)
-{
-    cout << "from new thread\n";
-    while (true)
-    {
-        char buf[256];
-        int size = recv(s2u.s, buf,256, 0);
-        if (size != 0)
-        {
-            int t = 0;
-        }
-        buf[size] = '\0';
-        printf("%s", buf);
-        int i = 0;
-
-    }
-}
 
 TypeRequest ManageClientsConnections::indicateRequest(string request)
 {

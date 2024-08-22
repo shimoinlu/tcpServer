@@ -13,10 +13,7 @@
 #include "User.h"
 #include "ManageUsersData.h"
 #pragma comment(lib, "Ws2_32.lib")
-typedef struct {
-	SOCKET& s;
-	string username;
-}socket2User;
+
 enum TypeRequest
 {
 	LOGIN,EXIT,SEND_MESSAGE,RECIVE_MESSAGES
@@ -29,7 +26,6 @@ public:
 	void HandleConnectionRequest(void* clientSocket);
 	
 private:
-	void RunThredForClient(const socket2User& s2u);
 	ManageUsersData mud;
 	TypeRequest indicateRequest(string request);
 	string getValueFromRequest(string request, string key);

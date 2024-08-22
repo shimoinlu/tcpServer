@@ -20,7 +20,13 @@ bool ManageUsersData::SearchUser(string username)
 
 void ManageUsersData::pushMessage(string from, string username, string message)
 {
+
     auto targetUser = usersTree.findNode(User{ username,""});
+    if (targetUser == nullptr)
+    {
+        string errorMessage = "not exist " + username + "select other target";
+        throw exception{ errorMessage.c_str()};
+    }
     Message msg(from, message);
     targetUser->val.addMessage(msg);
 }
