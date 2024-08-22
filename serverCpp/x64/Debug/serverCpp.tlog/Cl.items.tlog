@@ -1,2 +1,8 @@
+C:\Users\This_user\source\repos\serverCpp\serverCpp\AVLTree.cpp;C:\Users\This_user\source\repos\serverCpp\serverCpp\x64\Debug\AVLTree.obj
 C:\Users\This_user\source\repos\serverCpp\serverCpp\main.cpp;C:\Users\This_user\source\repos\serverCpp\serverCpp\x64\Debug\main.obj
+C:\Users\This_user\source\repos\serverCpp\serverCpp\ManageClientsConnections.cpp;C:\Users\This_user\source\repos\serverCpp\serverCpp\x64\Debug\ManageClientsConnections.obj
+C:\Users\This_user\source\repos\serverCpp\serverCpp\ManageUsersData.cpp;C:\Users\This_user\source\repos\serverCpp\serverCpp\x64\Debug\ManageUsersData.obj
+C:\Users\This_user\source\repos\serverCpp\serverCpp\Message.cpp;C:\Users\This_user\source\repos\serverCpp\serverCpp\x64\Debug\Message.obj
+C:\Users\This_user\source\repos\serverCpp\serverCpp\Node.cpp;C:\Users\This_user\source\repos\serverCpp\serverCpp\x64\Debug\Node.obj
+C:\Users\This_user\source\repos\serverCpp\serverCpp\TCPServer.cpp;C:\Users\This_user\source\repos\serverCpp\serverCpp\x64\Debug\TCPServer.obj
 C:\Users\This_user\source\repos\serverCpp\serverCpp\User.cpp;C:\Users\This_user\source\repos\serverCpp\serverCpp\x64\Debug\User.obj

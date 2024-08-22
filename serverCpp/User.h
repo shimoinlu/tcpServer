@@ -22,7 +22,7 @@ public:
 	bool operator== (User Right);
 
 	std::vector<Message> getMessages() { return vecMsg; }
-	void addMessage(const Message& msg);
+	void addMessage(const Message msg);
 	std::string printAllMessages();
 };
 

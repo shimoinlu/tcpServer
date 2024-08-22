@@ -32,7 +32,7 @@ bool User::operator==(User Right)
 	return !(*this < Right) && !(*this > Right);
 }
 
-void User::addMessage(const Message& msg)
+void User::addMessage(const Message msg)
 {
 	++messageCounter;
 	vecMsg.push_back(msg);
