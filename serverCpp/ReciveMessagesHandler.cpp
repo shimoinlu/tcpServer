@@ -1,9 +1,8 @@
 #include "ReciveMessagesHandler.h"
 
-ReciveMessagesHandler::ReciveMessagesHandler()
-{
-}
 
 void ReciveMessagesHandler::executeCommand(std::string request)
 {
+	string username = getValueFromRequest(request, "Username");
+	output = mud->allMessagesAsJsonForSpecificUser(username);
 }

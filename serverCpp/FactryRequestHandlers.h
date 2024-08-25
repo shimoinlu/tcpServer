@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <winsock2.h>
 #include "RequestHandler.h"
 #include "LoginRequestHandler.h"
 #include "ReciveMessagesHandler.h"
@@ -13,6 +14,6 @@ class FactryRequestHandlers
 public:
 	FactryRequestHandlers();
 	TypeRequest indicateTypeRequest(std::string r);
-	RequestHandler& getHandler(std::string recvbuf, size_t size);
+	RequestHandler* getHandler(std::string recvbuf, size_t size, string& msg);
 };
 

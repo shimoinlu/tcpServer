@@ -11,24 +11,24 @@ ManageClientsConnections::ManageClientsConnections()
 
 void ManageClientsConnections::HandleConnectionRequest(void* clientSocket)
 {
-    cout << "i in child thread my id is: " << this_thread::get_id() << '\n';
 
-    static int c = 0;
-    c++;
     char recvbuf[512];
     int recvbuflen = 512;
 
     SOCKET* pClientSocket = static_cast<SOCKET*>(clientSocket);
     SOCKET ClientSocket = *pClientSocket;
+    string message;
     int iResult = recv(ClientSocket, recvbuf, recvbuflen, 0);
     if (iResult > 0) {
         std::string request(recvbuf, iResult);
         try {
+            message.clear();
             FactryRequestHandlers f;
-            RequestHandler& r = f.getHandler(recvbuf, iResult);
-            r.executeCommand(string(recvbuf, iResult));
-                        
-            RetHttpOk(ClientSocket, "are you connected");
+            RequestHandler* r = nullptr;
+                 r = f.getHandler(recvbuf, iResult,message);
+            r->executeCommand(string(recvbuf, iResult));
+            RetHttpOk(ClientSocket, message);
+            delete r;
         }
         catch (exception& e)
         {

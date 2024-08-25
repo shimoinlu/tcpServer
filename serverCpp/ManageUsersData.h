@@ -22,7 +22,7 @@ public:
 	void isExistUserAndPasswordIsCorrect(string username, string password);
 	bool SearchUser(string username);
 	void pushMessage(string from, string username, string message);
-
+	string allMessagesAsJsonForSpecificUser(string username);
 
 };
 

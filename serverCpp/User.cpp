@@ -39,13 +39,18 @@ void User::addMessage(const Message msg)
 	vecMsg.push_back(msg);
 }
 
-std::string User::printAllMessages()
+std::string User::printAllMessagesAsJson()
 {
-	std::string res = "";
-	for(auto& msg : vecMsg)
-	{
-		res += msg.printMessage();
-	}
-	return res;
+		std::ostringstream oss;
+		oss << "[";  // Start of JSON array
+
+		for (size_t i = 0; i < vecMsg.size(); ++i) {
+			oss << vecMsg[i].toJSON();
+			if (i < vecMsg.size() - 1) {
+				oss << ", ";  // Add a comma between JSON objects
+			}
+		}
+		oss << "]";  // End of JSON array
+		return oss.str();
 }
 

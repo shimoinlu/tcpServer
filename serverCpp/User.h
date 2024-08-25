@@ -23,7 +23,7 @@ public:
 
 	std::vector<Message> getMessages() { return vecMsg; }
 	void addMessage(const Message msg);
-	std::string printAllMessages();
+	std::string printAllMessagesAsJson();
 };
 
 

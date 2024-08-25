@@ -44,3 +44,8 @@ void ManageUsersData::pushMessage(string from, string username, string message)
     Message msg(from, message);
     targetUser->val.addMessage(msg);
 }
+
+string ManageUsersData::allMessagesAsJsonForSpecificUser(string username)
+{
+    return mud->usersTree.findNode(User(username, ""))->val.printAllMessagesAsJson();
+}

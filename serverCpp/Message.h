@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <ctime>
+#include <sstream>
 class Message
 {
 private:
@@ -9,6 +10,6 @@ private:
 	time_t timeMessage;
 public:
 	Message(const std::string& from, const std::string& message);
-	std::string printMessage();
+	std::string toJSON();
 };
 
