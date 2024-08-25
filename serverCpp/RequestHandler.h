@@ -9,10 +9,10 @@
 
 class RequestHandler
 {
-private:
-
+protected:
+	ManageUsersData* mud;
 public:
-	RequestHandler() = default;
+	RequestHandler();
 	virtual void executeCommand(std::string request) = 0;
 	static string getValueFromRequest(string request, string key);
 };

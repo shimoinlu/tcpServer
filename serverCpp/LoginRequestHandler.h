@@ -5,10 +5,9 @@ class LoginRequestHandler:
     public RequestHandler
 {
 private:
-    ManageUsersData& mud;
 
 public:
-    LoginRequestHandler(ManageUsersData& m) :mud(m) {}
+    LoginRequestHandler();
     void executeCommand(std::string request)override;
 };
 

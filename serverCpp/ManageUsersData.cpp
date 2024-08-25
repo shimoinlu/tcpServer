@@ -1,5 +1,19 @@
 #include "ManageUsersData.h"
 #include "exception"
+
+ManageUsersData* ManageUsersData::mud = nullptr;
+AVLTree<User> ManageUsersData::usersTree(FILENAME);
+
+ManageUsersData* ManageUsersData::getInstance()
+{
+    if (mud == nullptr)
+    {
+        mud = new ManageUsersData();
+        return mud;
+    }
+    else
+        return mud;
+}
 void ManageUsersData::isExistUserAndPasswordIsCorrect(string username, string password)
 {
     if(!SearchUser(username))

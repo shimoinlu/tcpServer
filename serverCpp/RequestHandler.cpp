@@ -1,5 +1,10 @@
 #include "RequestHandler.h"
 
+RequestHandler::RequestHandler()
+{
+    mud = ManageUsersData::getInstance();
+}
+
 string RequestHandler::getValueFromRequest(string request, string key)
 {
     {

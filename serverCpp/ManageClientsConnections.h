@@ -18,11 +18,11 @@
 class ManageClientsConnections
 {
 public:
-	ManageClientsConnections() :mud() {};
+	ManageClientsConnections();
 	void HandleConnectionRequest(void* clientSocket);
 	
 private:
-	ManageUsersData mud;
+	ManageUsersData* mud;
 	string getValueFromRequest(string request, string key);
 	void RetHttpOk(SOCKET& cs, std::string message);
 	void RetErrorHttpRespone(SOCKET& cs, std::string message);

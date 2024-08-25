@@ -4,6 +4,11 @@
 #include <thread>
 
 
+ManageClientsConnections::ManageClientsConnections()
+{
+    mud = ManageUsersData::getInstance();
+}
+
 void ManageClientsConnections::HandleConnectionRequest(void* clientSocket)
 {
     cout << "i in child thread my id is: " << this_thread::get_id() << '\n';
@@ -19,7 +24,7 @@ void ManageClientsConnections::HandleConnectionRequest(void* clientSocket)
     if (iResult > 0) {
         std::string request(recvbuf, iResult);
         try {
-            FactryRequestHandlers f(mud);
+            FactryRequestHandlers f;
             RequestHandler& r = f.getHandler(recvbuf, iResult);
             r.executeCommand(string(recvbuf, iResult));
                         

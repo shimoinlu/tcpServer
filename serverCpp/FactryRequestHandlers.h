@@ -9,9 +9,9 @@ enum TypeRequest;
 
 class FactryRequestHandlers
 {
-	ManageUsersData& mud;
+	ManageUsersData* mud;
 public:
-	FactryRequestHandlers(ManageUsersData& m):mud(m){}
+	FactryRequestHandlers();
 	TypeRequest indicateTypeRequest(std::string r);
 	RequestHandler& getHandler(std::string recvbuf, size_t size);
 };

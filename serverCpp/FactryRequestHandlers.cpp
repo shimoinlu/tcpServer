@@ -11,7 +11,7 @@ RequestHandler& FactryRequestHandlers::getHandler(std::string recvbuf,size_t siz
     switch (r)
     {
     case LOGIN: {
-        LoginRequestHandler lr = (mud);
+        LoginRequestHandler lr;
         return lr;
     }
     case EXIT:
@@ -19,17 +19,21 @@ RequestHandler& FactryRequestHandlers::getHandler(std::string recvbuf,size_t siz
         break;
     }
     case SEND_MESSAGE: {
-        SendMessagesHandler smr(mud);
+        SendMessagesHandler smr;
         return smr;
     }
     case RECIVE_MESSAGES:
     {
-        ReciveMessagesHandler rmr(mud);
+        ReciveMessagesHandler rmr;
         return rmr;
     }
     default:
         throw exception("invalid Request");
     }
+}
+FactryRequestHandlers::FactryRequestHandlers()
+{
+    mud = ManageUsersData::getInstance();
 }
 TypeRequest FactryRequestHandlers::indicateTypeRequest(std::string r)
 {

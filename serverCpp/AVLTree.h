@@ -10,7 +10,7 @@ private:
 	Node<T>* root;
 public:
 
-	AVLTree();
+	AVLTree() = delete;
 	AVLTree(std::string fileName);
 
 	void insertToTree(T newItem);
@@ -18,15 +18,10 @@ public:
 	Node<T>* findNode(T node);
 };
 
-template<typename T>
-inline AVLTree<T>::AVLTree()
-	: root(nullptr)
-{
-}
 
 template<typename T>
 inline AVLTree<T>::AVLTree(std::string fileName)
-:AVLTree()
+:root(nullptr)
 {
 	ifstream inputFile(fileName);
 

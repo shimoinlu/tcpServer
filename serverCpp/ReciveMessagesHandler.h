@@ -5,10 +5,8 @@
 class ReciveMessagesHandler :
     public RequestHandler
 {
-    ManageUsersData& mud;
 public:
-
-    ReciveMessagesHandler(ManageUsersData& m):mud(m){}
+    ReciveMessagesHandler();
     void executeCommand(std::string request)override;
 };
 

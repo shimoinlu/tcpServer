@@ -4,9 +4,8 @@ class SendMessagesHandler :
     public RequestHandler
 {
 private:
-	ManageUsersData& mud;
 public:
-	SendMessagesHandler(ManageUsersData& m):mud(m){}
+	SendMessagesHandler() = default;
 	void executeCommand(std::string request) override;
 };
 
