@@ -11,37 +11,42 @@ ManageClientsConnections::ManageClientsConnections()
 
 void ManageClientsConnections::HandleConnectionRequest(void* clientSocket)
 {
-
+    static int i = 0;
     char recvbuf[512];
     int recvbuflen = 512;
-
     SOCKET* pClientSocket = static_cast<SOCKET*>(clientSocket);
     SOCKET ClientSocket = *pClientSocket;
-    string message;
-    int iResult = recv(ClientSocket, recvbuf, recvbuflen, 0);
-    if (iResult > 0) {
-        std::string request(recvbuf, iResult);
-        try {
-            message.clear();
-            FactryRequestHandlers f;
-            RequestHandler* r = nullptr;
-                 r = f.getHandler(recvbuf, iResult,message);
-            r->executeCommand(string(recvbuf, iResult));
-            RetHttpOk(ClientSocket, message);
-            delete r;
+    while (strcmp(recvbuf, "exit") != 0) {
+        cout << "i is: " << ++i << "\n";
+        string message;
+        int iResult = recv(ClientSocket, recvbuf, recvbuflen, 0);
+        if (iResult > 0) {
+            std::string request(recvbuf, iResult);
+            try {
+                message.clear();
+                FactryRequestHandlers f;
+                RequestHandler* r = nullptr;
+                r = f.getHandler(recvbuf, iResult, message);
+                r->executeCommand(string(recvbuf, iResult));
+                RetHttpOk(ClientSocket, message);
+                delete r;
+            }
+            catch (exception& e)
+            {
+                RetErrorHttpRespone(ClientSocket, e.what());
+                break;
+            }
         }
-        catch (exception& e)
-        {
-            RetErrorHttpRespone(ClientSocket, e.what());
-            closesocket(ClientSocket);
-        }
-        closesocket(ClientSocket);
-        free(pClientSocket);
-    }
-    else {
-        int e = WSAGetLastError();
+        else {
+
+            int e = WSAGetLastError();
             std::cout << "error is: " << e;
+            break;
+        }
     }
+    closesocket(ClientSocket);
+    free(pClientSocket);
+
 }
 
 

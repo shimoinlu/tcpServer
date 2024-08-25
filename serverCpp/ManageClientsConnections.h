@@ -20,7 +20,6 @@ class ManageClientsConnections
 public:
 	ManageClientsConnections();
 	void HandleConnectionRequest(void* clientSocket);
-	
 private:
 	ManageUsersData* mud;
 	string getValueFromRequest(string request, string key);

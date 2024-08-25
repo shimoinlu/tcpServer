@@ -71,9 +71,11 @@ TCPServer::~TCPServer()
 
 void TCPServer::runServer()
 {
+    int uy = 0;
     while (1)
     {
-        cout << "#########################\n";
+
+        cout << "#########################from server " << ++uy <<"\n";
         SOCKET* clientSocket = (SOCKET*)(malloc(sizeof(SOCKET)));  // allocate a SOCKET on the heap
         if (clientSocket == NULL) { printf("malloc() failed!?\n"); break; }
 
