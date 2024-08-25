@@ -9,6 +9,11 @@
 class ManageUsersData
 {
 public:
+	ManageUsersData(ManageUsersData& m) { 
+	
+	
+	
+	}
 	ManageUsersData():
 		usersTree(FILENAME) {};
 	void isExistUserAndPasswordIsCorrect(string username, string password);

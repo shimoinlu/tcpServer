@@ -1,7 +1,8 @@
 #include "ManageClientsConnections.h"
+#include "RequestHandler.h"
+#include "FactryRequestHandlers.h"
 #include <thread>
 
-void a(int e) {}
 
 void ManageClientsConnections::HandleConnectionRequest(void* clientSocket)
 {
@@ -15,36 +16,13 @@ void ManageClientsConnections::HandleConnectionRequest(void* clientSocket)
     SOCKET* pClientSocket = static_cast<SOCKET*>(clientSocket);
     SOCKET ClientSocket = *pClientSocket;
     int iResult = recv(ClientSocket, recvbuf, recvbuflen, 0);
-    cout << "c is: " << c << " " << recvbuf << '\n';
     if (iResult > 0) {
         std::string request(recvbuf, iResult);
-        TypeRequest r = indicateRequest(getValueFromRequest(request, "TypeRequest"));
         try {
-            switch (r)
-            {
-            case LOGIN: {
-                string username = getValueFromRequest(request, "Username");
-                string password = getValueFromRequest(request, "Password");
-                mud.isExistUserAndPasswordIsCorrect(username, password);
-                break;
-            }
-            case EXIT:
-                break;
-            case SEND_MESSAGE: {
-                cout << "***********" << request << "*************" << "\n";
-                string from = getValueFromRequest(request, "Username");
-                string data = request.substr(request.find("recipient"));
-                string recipient = data.substr(data.find_first_of("=") + 1);
-                recipient = recipient.substr(0, recipient.find("&"));
-                string message = data.substr(data.find_last_of("=") + 1);
-                mud.pushMessage(from, recipient, message);
-                break;
-            }
-            case RECIVE_MESSAGES:
-                break;
-            default:
-                break;
-            }
+            FactryRequestHandlers f(mud);
+            RequestHandler& r = f.getHandler(recvbuf, iResult);
+            r.executeCommand(string(recvbuf, iResult));
+                        
             RetHttpOk(ClientSocket, "are you connected");
         }
         catch (exception& e)
@@ -62,13 +40,6 @@ void ManageClientsConnections::HandleConnectionRequest(void* clientSocket)
 }
 
 
-TypeRequest ManageClientsConnections::indicateRequest(string request)
-{
-    if (request.compare("login") == 0)
-        return TypeRequest::LOGIN;
-    else if (request.compare("sendMessage") == 0)
-        return TypeRequest::SEND_MESSAGE;
-}
 
 string ManageClientsConnections::getValueFromRequest(string request, string key)
 {

@@ -9,6 +9,7 @@ class AVLTree
 private:
 	Node<T>* root;
 public:
+
 	AVLTree();
 	AVLTree(std::string fileName);
 

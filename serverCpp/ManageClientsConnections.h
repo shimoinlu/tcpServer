@@ -14,10 +14,6 @@
 #include "ManageUsersData.h"
 #pragma comment(lib, "Ws2_32.lib")
 
-enum TypeRequest
-{
-	LOGIN,EXIT,SEND_MESSAGE,RECIVE_MESSAGES
-};
 
 class ManageClientsConnections
 {
@@ -27,7 +23,6 @@ public:
 	
 private:
 	ManageUsersData mud;
-	TypeRequest indicateRequest(string request);
 	string getValueFromRequest(string request, string key);
 	void RetHttpOk(SOCKET& cs, std::string message);
 	void RetErrorHttpRespone(SOCKET& cs, std::string message);
