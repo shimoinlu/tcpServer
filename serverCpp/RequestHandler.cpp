@@ -1,5 +1,9 @@
 #include "RequestHandler.h"
 
+
+
+std::map<std::string, std::string> RequestHandler::dataConnection;
+
 RequestHandler::RequestHandler()
 {
     mud = ManageUsersData::getInstance();

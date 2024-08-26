@@ -4,9 +4,9 @@
 #include <thread>
 
 
+
 ManageClientsConnections::ManageClientsConnections()
 {
-//    dataConnection = new std::set < std::pair<std::string, thread>>();
     mud = ManageUsersData::getInstance();
 }
 
@@ -29,6 +29,11 @@ void ManageClientsConnections::HandleConnectionRequest(void* clientSocket)
                 r->executeCommand(string(recvbuf, iResult), message);
                 RetHttpOk(ClientSocket, message);
                 delete r;
+            }
+            catch (DisconnectedException& de)
+            {
+                RetErrorHttpRespone(ClientSocket, "you are not connected");
+
             }
             catch (exception& e)
             {
@@ -79,6 +84,7 @@ void ManageClientsConnections::RetHttpOk(SOCKET& cs, std::string message)
 }
 void ManageClientsConnections::RetErrorHttpRespone(SOCKET& cs, std::string message)
 {
+    cout << "\nfrom error\n";
     std::string httpResponse =
         "HTTP/1.1 487 Miss Data\r\n"  // Status line
         "Content-Type: text/plain\r\n"  // Content-Type header

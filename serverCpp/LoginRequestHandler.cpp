@@ -4,11 +4,11 @@ LoginRequestHandler::LoginRequestHandler()
 {
 }
 
-void LoginRequestHandler::executeCommand(std::string request,std::string& message)
+void LoginRequestHandler::executeCommand(std::string request, std::string& message)
 {
-    string username = getValueFromRequest(request, "Username");
-    string password = getValueFromRequest(request, "Password");
-    mud->isExistUserAndPasswordIsCorrect(username, password);
+	string username = getValueFromRequest(request, "Username");
+	string password = getValueFromRequest(request, "Password");
+	mud->isExistUserAndPasswordIsCorrect(username, password);
 
 	std::hash<time_t> hashLoginCode;
 	time_t t = time(NULL);
@@ -19,4 +19,5 @@ void LoginRequestHandler::executeCommand(std::string request,std::string& messag
 	oss << "}";
 	cout << "\n" << hash << "\n";
 	message = oss.str();
+	RequestHandler::dataConnection[username] = hash;
 }

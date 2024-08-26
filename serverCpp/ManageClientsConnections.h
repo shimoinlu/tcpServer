@@ -13,6 +13,9 @@
 #include "AVLTree.h" 
 #include "User.h"
 #include "ManageUsersData.h"
+#include "DisconnectedException.h"
+
+
 #pragma comment(lib, "Ws2_32.lib")
 
 
@@ -20,7 +23,7 @@ class ManageClientsConnections
 {
 public:
 
-//s	std::set< std::string,thread>*dataConnection;
+	static std::set< std::string,std::string> dataConnection;
 	ManageClientsConnections();
 	void HandleConnectionRequest(void* clientSocket);
 private:

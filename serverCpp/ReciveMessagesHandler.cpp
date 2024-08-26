@@ -3,5 +3,9 @@
 void ReciveMessagesHandler::executeCommand(std::string request,std::string& message)
 {
 	string username = getValueFromRequest(request, "Username");
-	output = mud->allMessagesAsJsonForSpecificUser(username);
+	std::map<std::string, std::string>::iterator it = RequestHandler::dataConnection.find(username);
+	if (it != dataConnection.end() && it->second == getValueFromRequest(request, "hashCode"))
+		output = mud->allMessagesAsJsonForSpecificUser(username);
+	else
+		throw DisconnectedException();
 }

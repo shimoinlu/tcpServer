@@ -1,6 +1,7 @@
 #include "ExitRequestHandler.h"
 
-void ExitRequestHandler::executeCommand(std::string& msg)
+
+void ExitRequestHandler::executeCommand(std::string request, std::string& message)
 {
-	msg = "exit";
+	dataConnection.erase(getValueFromRequest(request, "hashCode"));
 }

@@ -45,4 +45,6 @@ TypeRequest FactryRequestHandlers::indicateTypeRequest(std::string r)
         return TypeRequest::RECIVE_MESSAGES;
     else if (r.compare("exit") == 0)
         return TypeRequest::EXIT;
+    else 
+        return TypeRequest::EXIT;
 }
