@@ -13,7 +13,7 @@ protected:
 	ManageUsersData* mud;
 public:
 	RequestHandler();
-	virtual void executeCommand(std::string request) = 0;
+	virtual void executeCommand(std::string request,std::string& message) = 0;
 	static string getValueFromRequest(string request, string key);
 };
 

@@ -17,7 +17,6 @@ void ManageClientsConnections::HandleConnectionRequest(void* clientSocket)
     int recvbuflen = 512;
     SOCKET* pClientSocket = static_cast<SOCKET*>(clientSocket);
     SOCKET ClientSocket = *pClientSocket;
-    while (strcmp(recvbuf, "exit") != 0) {
         string message;
         int iResult = recv(ClientSocket, recvbuf, recvbuflen, 0);
         if (iResult > 0) {
@@ -27,26 +26,22 @@ void ManageClientsConnections::HandleConnectionRequest(void* clientSocket)
                 FactryRequestHandlers f;
                 RequestHandler* r = nullptr;
                 r = f.getHandler(recvbuf, iResult, message);
-                r->executeCommand(string(recvbuf, iResult));
+                r->executeCommand(string(recvbuf, iResult), message);
                 RetHttpOk(ClientSocket, message);
                 delete r;
             }
             catch (exception& e)
             {
                 RetErrorHttpRespone(ClientSocket, e.what());
-                break;
             }
         }
         else {
 
             int e = WSAGetLastError();
             std::cout << "error is: " << e;
-            break;
         }
-    }
-    closesocket(ClientSocket);
-    free(pClientSocket);
-
+        closesocket(ClientSocket);
+        free(pClientSocket);
 }
 
 

@@ -10,6 +10,6 @@ private:
         string& output;
 public:
     ReciveMessagesHandler(string& msg) :output(msg) {}
-    void executeCommand(std::string request)override;
+    void executeCommand(std::string request,std::string& message)override;
 };
 

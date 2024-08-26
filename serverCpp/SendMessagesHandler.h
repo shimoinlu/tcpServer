@@ -6,6 +6,6 @@ class SendMessagesHandler :
 private:
 public:
 	SendMessagesHandler() = default;
-	void executeCommand(std::string request) override;
+	void executeCommand(std::string request,std::string& message) override;
 };
 
