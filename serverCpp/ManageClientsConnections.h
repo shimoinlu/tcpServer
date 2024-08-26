@@ -7,6 +7,7 @@
 #include <ws2tcpip.h>
 #include <iostream>
 #include <map>
+#include <set>
 #include <sstream>
 #include <exception>
 #include "AVLTree.h" 
@@ -18,6 +19,8 @@
 class ManageClientsConnections
 {
 public:
+
+//s	std::set< std::string,thread>*dataConnection;
 	ManageClientsConnections();
 	void HandleConnectionRequest(void* clientSocket);
 private:

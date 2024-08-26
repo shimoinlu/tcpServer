@@ -1,5 +1,5 @@
 #include "FactryRequestHandlers.h"
-
+#include <thread>
 enum TypeRequest
 {
     LOGIN, EXIT, SEND_MESSAGE, RECIVE_MESSAGES
@@ -35,10 +35,14 @@ FactryRequestHandlers::FactryRequestHandlers()
 }
 TypeRequest FactryRequestHandlers::indicateTypeRequest(std::string r)
 {
+    cout << " request is: "<< r <<" my thread id is : " << this_thread::get_id() << "\n";
+
     if (r.compare("login") == 0)
         return TypeRequest::LOGIN;
     else if (r.compare("sendMessage") == 0)
         return TypeRequest::SEND_MESSAGE;
     else if (r.compare("receiveMessage") == 0)
         return TypeRequest::RECIVE_MESSAGES;
+    else if (r.compare("exit") == 0)
+        return TypeRequest::EXIT;
 }

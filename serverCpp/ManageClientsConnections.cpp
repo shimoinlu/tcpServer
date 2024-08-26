@@ -6,6 +6,7 @@
 
 ManageClientsConnections::ManageClientsConnections()
 {
+//    dataConnection = new std::set < std::pair<std::string, thread>>();
     mud = ManageUsersData::getInstance();
 }
 
@@ -17,7 +18,6 @@ void ManageClientsConnections::HandleConnectionRequest(void* clientSocket)
     SOCKET* pClientSocket = static_cast<SOCKET*>(clientSocket);
     SOCKET ClientSocket = *pClientSocket;
     while (strcmp(recvbuf, "exit") != 0) {
-        cout << "i is: " << ++i << "\n";
         string message;
         int iResult = recv(ClientSocket, recvbuf, recvbuflen, 0);
         if (iResult > 0) {
