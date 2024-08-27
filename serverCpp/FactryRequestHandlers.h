@@ -5,6 +5,7 @@
 #include "LoginRequestHandler.h"
 #include "ReciveMessagesHandler.h"
 #include "SendMessagesHandler.h"
+#include "CountUnreadedMessagesHandler.h"
 
 enum TypeRequest;
 

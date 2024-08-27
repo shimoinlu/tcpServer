@@ -23,6 +23,6 @@ public:
 	bool SearchUser(string username);
 	void pushMessage(string from, string username, string message);
 	string allMessagesAsJsonForSpecificUser(string username);
-
+	int NumOfUnreadMessagesForSpecificUser(std::string username);
 };
 
