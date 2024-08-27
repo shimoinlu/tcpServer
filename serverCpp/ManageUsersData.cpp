@@ -34,23 +34,31 @@ bool ManageUsersData::SearchUser(string username)
 
 void ManageUsersData::pushMessage(string from, string username, string message)
 {
-
     auto targetUser = usersTree.findNode(User{ username,""});
+
     if (targetUser == nullptr)
     {
         string errorMessage = "not exist " + username + "select other target";
         throw exception{ errorMessage.c_str()};
     }
     Message msg(from, message);
+    targetUser->val.GetMutex().lock();
     targetUser->val.addMessage(msg);
+    targetUser->val.GetMutex().unlock();
 }
 
 string ManageUsersData::allMessagesAsJsonForSpecificUser(string username)
 {
-    return mud->usersTree.findNode(User(username, ""))->val.printAllMessagesAsJson();
+    mud->usersTree.findNode(User(username, ""))->val.GetMutex().lock();
+    string m = mud->usersTree.findNode(User(username, ""))->val.printAllMessagesAsJson();
+    mud->usersTree.findNode(User(username, ""))->val.GetMutex().unlock();
+    return m;
 }
 
 int ManageUsersData::NumOfUnreadMessagesForSpecificUser(std::string username)
 {
-    return mud->usersTree.findNode(User{username, ""})->val.unreadedMessages();
+    mud->usersTree.findNode(User(username, ""))->val.GetMutex().lock();
+    int num = mud->usersTree.findNode(User{username, ""})->val.unreadedMessages();
+    mud->usersTree.findNode(User(username, ""))->val.GetMutex().unlock();
+    return num;
 }

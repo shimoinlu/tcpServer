@@ -3,7 +3,8 @@
 #include <string>
 #include <vector>
 #include "Message.h"
-#include "Semaphore.h"
+#include "CustomMutex.h"
+
 class User
 {
 private:
@@ -11,9 +12,9 @@ private:
 	std::string pass;
 	std::vector<Message> vecMsg;
 	int readedMessage;
-	Semaphore sem;
+	CustomMutex mutex;
 public:
-	User(const User&) = default;
+
 	User( std::string const& userNameParameter, std::string const& password);
 	User( std::string const& line);
 	bool validatePassword(const std::string& password);
@@ -21,6 +22,7 @@ public:
 	bool operator< (User Right);
 	bool operator> (User Right);
 	bool operator== (User Right);
+	CustomMutex& GetMutex() { return mutex; }
 	int unreadedMessages();
 	std::vector<Message> getMessages() { return vecMsg; }
 	void addMessage(const Message msg);

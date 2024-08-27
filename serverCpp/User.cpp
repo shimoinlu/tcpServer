@@ -1,7 +1,7 @@
 #include "User.h"
 #include <algorithm>
 User::User( std::string const & userNameParameter,  std::string const& password)
-:sem()
+:mutex()
 {
 	
 	userName = userNameParameter;
@@ -38,22 +38,22 @@ bool User::operator==(User Right)
 
 int User::unreadedMessages()
 {
-	sem.wait();
+	
 	int r = vecMsg.size() - readedMessage;
-	sem.signal();
+
 	return r;
 }
 
 void User::addMessage(const Message msg)
 {
-	sem.wait();
+	
 	vecMsg.push_back(msg);
-	sem.signal();
+
 }
 
 std::string User::printAllMessagesAsJson()
 {	
-	sem.wait();
+	
 	readedMessage = vecMsg.size();
 		std::ostringstream oss;
 		oss << "[";  // Start of JSON array
@@ -65,7 +65,7 @@ std::string User::printAllMessagesAsJson()
 			}
 		}
 	oss << "]";  // End of JSON array
-	sem.signal();
+
 	return oss.str();
 }
 
