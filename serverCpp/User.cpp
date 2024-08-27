@@ -1,10 +1,12 @@
 #include "User.h"
 #include <algorithm>
 User::User( std::string const & userNameParameter,  std::string const& password)
+:sem()
 {
+	
 	userName = userNameParameter;
 	pass = password;
-	messageCounter = readedMessage = 0;
+	readedMessage = 0;
 	vecMsg = std::vector<Message>();
 }
 
@@ -25,22 +27,34 @@ bool User::operator<(User Right)
 
 bool User::operator>(User Right)
 {
-	return Right < *this;
+	return strcmp(Right.userName.c_str(),getUserName().c_str()) < 0;
 }
 
 bool User::operator==(User Right)
 {
-	return !(*this < Right) && !(*this > Right);
+	return (strcmp(Right.userName.c_str(), getUserName().c_str()) < 0 == false)
+		&& (strcmp(userName.c_str(), Right.getUserName().c_str()) < 0 == false);
+}
+
+int User::unreadedMessages()
+{
+	sem.wait();
+	int r = vecMsg.size() - readedMessage;
+	sem.signal();
+	return r;
 }
 
 void User::addMessage(const Message msg)
 {
-	++messageCounter;
+	sem.wait();
 	vecMsg.push_back(msg);
+	sem.signal();
 }
 
 std::string User::printAllMessagesAsJson()
-{
+{	
+	sem.wait();
+	readedMessage = vecMsg.size();
 		std::ostringstream oss;
 		oss << "[";  // Start of JSON array
 
@@ -50,7 +64,8 @@ std::string User::printAllMessagesAsJson()
 				oss << ", ";  // Add a comma between JSON objects
 			}
 		}
-		oss << "]";  // End of JSON array
-		return oss.str();
+	oss << "]";  // End of JSON array
+	sem.signal();
+	return oss.str();
 }
 

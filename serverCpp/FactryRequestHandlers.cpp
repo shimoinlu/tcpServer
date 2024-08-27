@@ -2,7 +2,7 @@
 #include <thread>
 enum TypeRequest
 {
-    LOGIN, EXIT, SEND_MESSAGE, RECIVE_MESSAGES
+    LOGIN, EXIT, SEND_MESSAGE, RECIVE_MESSAGES, NUM_UNREADED_MESSAGES
 };
 
 RequestHandler* FactryRequestHandlers::getHandler(std::string recvbuf,size_t size, string& msg )
@@ -25,6 +25,10 @@ RequestHandler* FactryRequestHandlers::getHandler(std::string recvbuf,size_t siz
     {
         return new ReciveMessagesHandler(msg);
     }
+    case NUM_UNREADED_MESSAGES:
+    {
+        return new  CountUnreadedMessagesHandler;
+    }
     default:
         throw exception("invalid Request");
     }
@@ -45,6 +49,6 @@ TypeRequest FactryRequestHandlers::indicateTypeRequest(std::string r)
         return TypeRequest::RECIVE_MESSAGES;
     else if (r.compare("exit") == 0)
         return TypeRequest::EXIT;
-    else 
-        return TypeRequest::EXIT;
+    else if(r.compare("numOfUnreadedMessages") == 0)
+        return TypeRequest::NUM_UNREADED_MESSAGES;
 }

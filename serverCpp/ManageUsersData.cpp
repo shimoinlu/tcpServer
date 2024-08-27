@@ -49,3 +49,8 @@ string ManageUsersData::allMessagesAsJsonForSpecificUser(string username)
 {
     return mud->usersTree.findNode(User(username, ""))->val.printAllMessagesAsJson();
 }
+
+int ManageUsersData::NumOfUnreadMessagesForSpecificUser(std::string username)
+{
+    return mud->usersTree.findNode(User{username, ""})->val.unreadedMessages();
+}
