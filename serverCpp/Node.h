@@ -129,9 +129,4 @@ Node<T>* insert(Node<T>* node, T val) {
 // preorder traversal of the tree 
 template <typename T>
 void preOrder(Node<T>* root) {
-    //if (root != nullptr) {
-    //    cout << root->val << " ";
-    //    preOrder(root->left);
-    //    preOrder(root->right);
-    //}
 }

@@ -43,7 +43,6 @@ void ManageClientsConnections::HandleConnectionRequest(void* clientSocket)
         else {
 
             int e = WSAGetLastError();
-            std::cout << "error is: " << e;
         }
         closesocket(ClientSocket);
         free(pClientSocket);
@@ -84,7 +83,6 @@ void ManageClientsConnections::RetHttpOk(SOCKET& cs, std::string message)
 }
 void ManageClientsConnections::RetErrorHttpRespone(SOCKET& cs, std::string message)
 {
-    cout << "\nfrom error\n";
     std::string httpResponse =
         "HTTP/1.1 487 Miss Data\r\n"  // Status line
         "Content-Type: text/plain\r\n"  // Content-Type header

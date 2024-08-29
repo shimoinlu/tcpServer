@@ -54,12 +54,7 @@ TCPServer::TCPServer()
         WSACleanup();
     }
 
-    std::cout << "Waiting for client to connect..." << std::endl;
 
-    // Accept a client socket
-
-    std::cout << "Client connected." << std::endl;
-    // Receive data from the client
 
 }
 
@@ -74,8 +69,6 @@ void TCPServer::runServer()
     int uy = 0;
     while (1)
     {
-
-        cout << "#########################from server " << ++uy <<"\n";
         SOCKET* clientSocket = (SOCKET*)(malloc(sizeof(SOCKET)));  // allocate a SOCKET on the heap
         if (clientSocket == NULL) { printf("malloc() failed!?\n"); break; }
 
@@ -85,7 +78,6 @@ void TCPServer::runServer()
             closesocket(listenSocket);
             WSACleanup();
         }
-            cout << "i in parent my id is: " << this_thread::get_id() << '\n';
                                                                                                                                                                                         //        mud.isExistUserAndPasswordIsCorrect(headers["Username"], headers["Password"]);
                                                                                                                                                                             // Creating a thread with std::thread
             std::thread thread(&TCPServer::newThread, this, (void*)clientSocket);

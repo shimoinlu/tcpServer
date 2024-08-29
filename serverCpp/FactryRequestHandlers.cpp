@@ -39,7 +39,6 @@ FactryRequestHandlers::FactryRequestHandlers()
 }
 TypeRequest FactryRequestHandlers::indicateTypeRequest(std::string r)
 {
-    cout << " request is: "<< r <<" my thread id is : " << this_thread::get_id() << "\n";
 
     if (r.compare("login") == 0)
         return TypeRequest::LOGIN;

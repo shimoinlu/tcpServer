@@ -20,8 +20,6 @@ void ManageUsersData::isExistUserAndPasswordIsCorrect(string username, string pa
         throw exception("not exist this username");
     else if (!usersTree.findNode(User{ username,"" })->val.validatePassword(password))
         throw exception("this user is exist but password is missing");
-    else
-        std::cout << "username is: " << username << " password is: " << password << std::endl;
 }
 
 

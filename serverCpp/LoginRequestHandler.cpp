@@ -17,7 +17,6 @@ void LoginRequestHandler::executeCommand(std::string request, std::string& messa
 	oss << "{";
 	oss << "\"hashCode\": \"" << hash << "\"";
 	oss << "}";
-	cout << "\n" << hash << "\n";
 	message = oss.str();
 	RequestHandler::dataConnection[username] = hash;
 }
